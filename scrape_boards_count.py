@@ -40,17 +40,6 @@ for boardPageNum in range(1, board['num_pages'] + 1):
             logging.info(">>Could not request URL for topic {0}:".format(
                 topicId))
             continue
-        logging.info(">>Found {0} message pages in topic...".format(
-            topic['num_pages']))
-        for topicPageNum in range(1, topic['num_pages'] + 1):
-            logging.info(">>>Scraping page {0}...".format(topicPageNum))
-            messages = memoizer.scrapeMessages(topic['id'], topicPageNum)
-            for message in messages:
-                if message['member'] > 0:
-                    memoizer.scrapeMember(message['member'])
-            logging.info(">>>Done with page {0}.".format(topicPageNum))
-        logging.info(">>Done scraping topic ID {0}.".format(topicId))
-    logging.info(">Done with page {0}.".format(boardPageNum))
 
 logging.info("All done.")
 logging.info("Made {0} requests in total.".format(bitcointalk.countRequested))
