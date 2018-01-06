@@ -7,6 +7,7 @@ import sys
 import traceback
 
 boardId = 159
+pages = 100
 
 logging.basicConfig(
     level=logging.INFO,
@@ -14,7 +15,7 @@ logging.basicConfig(
     datefmt='%m/%d/%Y %I:%M:%S %p')
 
 # Make sure we don't rescrape information already in the DB
-memoizer.remember()
+# memoizer.remember()
 
 ignore = [2284373, 718124, 2559282, 1042324, 936724, 780979]
 
@@ -22,6 +23,7 @@ logging.info("Beginning scrape of board ID...".format(boardId))
 board = memoizer.scrapeBoard(boardId)
 logging.info("Found {0} topic pages in board...".format(
     board['num_pages']))
+
 for boardPageNum in range(1, board['num_pages'] + 1):
     logging.info(">Scraping page {0}...".format(boardPageNum))
     topicIds = memoizer.scrapeTopicIds(boardId, boardPageNum)
