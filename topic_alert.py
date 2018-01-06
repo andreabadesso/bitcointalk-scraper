@@ -122,8 +122,8 @@ URL: https://bitcointalk.org/index.php?topic={3}
             round(alarm["read_increase"], 2),
             round(alarm["pages_increase"], 2),
             alarm["topic_id"],
-            "{0} -> {1}".format(alarm["last_day_pages"], alarm["num_pages"]),
-            "{0} -> {1}".format(alarm["last_day_reads"], alarm["count_read"])
+            "{0} -> {1}".format(alarm["last_day_reads"], alarm["count_read"]),
+            "{0} -> {1}".format(alarm["last_day_pages"], alarm["num_pages"])
             ))
         counter = counter + 1
 
