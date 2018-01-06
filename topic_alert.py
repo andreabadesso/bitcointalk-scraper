@@ -79,9 +79,9 @@ def get_topics(cur):
 
 def create_dict(row, topics):
     dict = {}
-    for name, id in topics:
-        if id == row[0]:
-            dict["name"] = name
+    for topic in topics:
+        if topic["topic_id"] == row[0]:
+            dict["name"] = topic["name"]
     dict["topic_id"] = row[0]
     dict["num_pages"] = row[2]
     dict["count_read"] = row[3]
