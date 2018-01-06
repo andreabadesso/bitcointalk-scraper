@@ -35,8 +35,7 @@ def latest(bot, update):
     messages = map(lambda x: format(x), cur.fetchall())
     message = "\r\n".join(messages)
 
-    for listener in listeners:
-        updater.bot.send_message(chat_id=update.message.chat_id, text=message, parse_mode=telegram.ParseMode.MARKDOWN)
+    updater.bot.send_message(chat_id=update.message.chat_id, text=message, parse_mode=telegram.ParseMode.MARKDOWN)
 
 start_handler = CommandHandler('21blocks_subscribe', start)
 latest_handler = CommandHandler('latest', latest)
