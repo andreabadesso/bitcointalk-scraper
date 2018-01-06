@@ -106,14 +106,14 @@ if len(alarms) > 0:
     counter = 0
     messages = ["Announcements com aumento de relevancia:", "\r\n"]
     for alarm in alarms:
-        messages.append("""{0}
-Aumento no numero de visualizacoes do topico: +{1}% ({4})
-Aumento no numero de paginas do topico: +{2}% ({5})
+        messages.append("""**{0}**
+Aumento no numero de visualizacoes do topico: `+{1}%` ({4})
+Aumento no numero de paginas do topico: `+{2}%` ({5})
 URL: https://bitcointalk.org/index.php?topic={3}
 """.format(alarm["name"],
             alarm["read_increase"],
             alarm["pages_increase"],
-            alarm["name"],
+            alarm["topic_id"],
             alarm["num_pages"],
             alarm["count_read"]
             ))
