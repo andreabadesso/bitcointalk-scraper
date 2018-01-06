@@ -3,6 +3,7 @@ import redis
 import threading
 import io
 import telegram
+import pg
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 
@@ -22,8 +23,25 @@ def start(bot, update):
     listeners.append(update.message.chat_id)
     bot.send_message(chat_id=update.message.chat_id, text="You're now listening.")
 
+def latest(bot, update):
+    cur = pg.cursor()
+    cur.execute("SELECT sid, name FROM topic LIMIT 10 ORDER BY sid DESC")
+
+    def format(row):
+        return """{0}
+    URL: https://bitcointalk.org/index.php?topic={1}
+        """.format(row[1], row[0])
+
+    messages = map(lambda x: format(x), cur.fetchall())
+    message = "\r\n".join(messages)
+
+    for listener in listeners:
+        updater.bot.send_message(chat_id=listener, message, parse_mode=telegram.ParseMode.MARKDOWN)
+
 start_handler = CommandHandler('21blocks_subscribe', start)
+latest_handler = CommandHandler('latest', latest)
 dispatcher.add_handler(start_handler)
+dispatcher.add_handler(latest_handler)
 updater.start_polling()
 
 # updater.bot.send_message(chat_id="-1001312685209", text="OK")
