@@ -111,7 +111,7 @@ alarms = get_alarms(query, cur, topics)
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in xrange(0, len(l), n):
-        yield l[i:i + n]<Paste>
+        yield l[i:i + n]
 
 if len(alarms) > 0:
     counter = 0
