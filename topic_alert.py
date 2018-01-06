@@ -111,7 +111,7 @@ if len(alarms) > 0:
                                                                     alarm["pages_increase"],
                                                                     alarm["name"]))
         id = id + 1
-    message = "".join(messages)
+    message = "\r\n".join(messages)
     r = redis.Redis()
     r.publish("bot_messages", message)
 
