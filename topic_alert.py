@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 import pg
 import redis
 
@@ -104,11 +106,11 @@ topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
 if len(alarms) > 0:
     counter = 0
-    messages = ["Announcements com aumento de relevancia:", "\r\n"]
+    messages = [u"🔔🔔  Announcements com aumento de relevância: 🔔🔔🔔 ", "\r\n"]
     for alarm in alarms:
-        messages.append("""**{0}**
-Aumento no numero de visualizacoes do topico: `+{1}%` ({4})
-Aumento no numero de paginas do topico: `+{2}%` ({5})
+        messages.append(u"""**{0}**
+Aumento no número de visualizações do tópico: `+{1}%` ({4})
+Aumento no número de paginas do tópico: `+{2}%` ({5})
 URL: https://bitcointalk.org/index.php?topic={3}
 """.format(alarm["name"],
             round(alarm["read_increase"], 2),
