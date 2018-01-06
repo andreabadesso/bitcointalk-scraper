@@ -108,7 +108,7 @@ cur = pg.cursor()
 topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
 
-def chunks(l, n):
+def chunkify(l, n):
     """Yield successive n-sized chunks from l."""
     for i in xrange(0, len(l), n):
         yield l[i:i + n]
@@ -131,7 +131,7 @@ URL: https://bitcointalk.org/index.php?topic={3}
         counter = counter + 1
 
     r = redis.Redis()
-    chunks = chunk(messages, 10)
+    chunks = chunkify(messages, 10)
     for chunk in chunks:
         message = "\r\n".join(chunk)
         r.publish("bot_messages", message)
