@@ -60,13 +60,13 @@ query = """
                 num_pages
             FROM last_day
             WHERE topic_id = latest.topic_id
-        )::float - 100) > 10 OR
+        )::float - 100) > 20 OR
         ((latest.count_read * 100) / (
             SELECT 
                 count_read
             FROM last_day
             WHERE topic_id = latest.topic_id
-        )::float - 100) > 10
+        )::float - 100) > 20
 """
 
 def row_to_topic(row):
@@ -107,6 +107,12 @@ def get_alarms(query, cur, topics):
 cur = pg.cursor()
 topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in xrange(0, len(l), n):
+        yield l[i:i + n]<Paste>
+
 if len(alarms) > 0:
     counter = 0
     messages = [u"🔔🔔 Announcements com aumento de relevância: 🔔🔔", "\r\n"]
@@ -119,13 +125,16 @@ URL: https://bitcointalk.org/index.php?topic={3}
             round(alarm["read_increase"], 2),
             round(alarm["pages_increase"], 2),
             alarm["topic_id"],
-            float(alarm["num_pages"]) - float(alarm["last_day_pages"]),
-            float(alarm["count_read"]) - float(alarm["last_day_reads"])
+            "{0} -> {1}".format(alarm["num_pages"], alarm["last_day_pages"]),
+            "{0} -> {1}".format(alarm["count_read"], alarm["last_day_reads"])
             ))
         counter = counter + 1
-    message = "\r\n".join(messages)
+
     r = redis.Redis()
-    r.publish("bot_messages", message)
+    chunks = chunk(messages, 10)
+    for chunk in chunks:
+        message = "\r\n".join(chunk)
+        r.publish("bot_messages", message)
 
 print len(alarms)
 # print alarms
