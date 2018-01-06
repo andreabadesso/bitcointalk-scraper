@@ -25,7 +25,7 @@ def start(bot, update):
 
 def latest(bot, update):
     cur = pg.cursor()
-    cur.execute("SELECT sid, name FROM topic LIMIT 10 ORDER BY sid DESC")
+    cur.execute("SELECT sid, name FROM topic ORDER BY sid DESC LIMIT 10")
 
     def format(row):
         return """{0}
