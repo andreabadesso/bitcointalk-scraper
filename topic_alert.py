@@ -112,9 +112,9 @@ if len(alarms) > 0:
                                                                     alarm["name"]))
         id = id + 1
     message = "".join(messages)
+    r = redis.Redis()
     r.publish("bot_messages", message)
 
-r = redis.Redis()
 
 print len(alarms)
 # print alarms
