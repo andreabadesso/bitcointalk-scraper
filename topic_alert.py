@@ -106,20 +106,21 @@ if len(alarms) > 0:
     counter = 0
     messages = ["Announcements com aumento de relevancia:", "\r\n"]
     for alarm in alarms:
-        messages.append("{0} - [READ: +{1}%, PAGE: +{2}%] {3}".format(counter,
-                                                                    alarm["read_increase"],
-                                                                    alarm["pages_increase"],
-                                                                    alarm["name"]))
-        counter = counter + 1
-    counter = 0
-    messages.append("\r\n")
-    for alarm in alarms:
-        messages.append("https://bitcointalk.org/index.php?topic={0}.0".format(alarm["topic_id"]))
+        messages.append("""{0}
+Aumento no numero de visualizacoes do topico: +{1}% ({4})
+Aumento no numero de paginas do topico: +{2}% ({5})
+URL: https://bitcointalk.org/index.php?topic={3}
+""".format(alarm["name"],
+            alarm["read_increase"],
+            alarm["pages_increase"],
+            alarm["name"],
+            alarm["num_pages"],
+            alarm["count_read"]
+            ))
         counter = counter + 1
     message = "\r\n".join(messages)
     r = redis.Redis()
     r.publish("bot_messages", message)
-
 
 print len(alarms)
 # print alarms
