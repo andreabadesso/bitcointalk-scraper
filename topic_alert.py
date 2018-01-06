@@ -116,8 +116,8 @@ URL: https://bitcointalk.org/index.php?topic={3}
             round(alarm["read_increase"], 2),
             round(alarm["pages_increase"], 2),
             alarm["topic_id"],
-            alarm["num_pages"] - alarm["last_day_pages"],
-            alarm["count_read"] - alarm["last_day_reads"]
+            float(alarm["num_pages"]) - float(alarm["last_day_pages"]),
+            float(alarm["count_read"]) - float(alarm["last_day_reads"])
             ))
         counter = counter + 1
     message = "\r\n".join(messages)
