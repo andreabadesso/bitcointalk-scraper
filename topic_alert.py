@@ -103,14 +103,19 @@ cur = pg.cursor()
 topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
 if len(alarms) > 0:
-    id = 0
-    messages = ["Announcements com aumento de relevancia:"]
+    counter = 0
+    messages = ["Announcements com aumento de relevancia:", "\r\n"]
     for alarm in alarms:
-        messages.append("[{0}] [READ: +{1}, PAGE: +{2}] {3}".format(id, alarm["name"],
+        messages.append("{0} - [READ: +{1}%, PAGE: +{2}%] {3}".format(counter,
                                                                     alarm["read_increase"],
                                                                     alarm["pages_increase"],
                                                                     alarm["name"]))
-        id = id + 1
+        counter = counter + 1
+    counter = 0
+    messages.append("\r\n")
+    for alarm in alarms:
+        messages.append("https://bitcointalk.org/index.php?topic={0}.0".format(alarm.topic_id))
+        counter = counter + 1
     message = "\r\n".join(messages)
     r = redis.Redis()
     r.publish("bot_messages", message)
