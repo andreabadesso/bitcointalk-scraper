@@ -3,3 +3,4 @@ sql/setup.sql
 data
 log
 .pgpass
+.bot_token
