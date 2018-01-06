@@ -114,7 +114,7 @@ if len(alarms) > 0:
     counter = 0
     messages.append("\r\n")
     for alarm in alarms:
-        messages.append("https://bitcointalk.org/index.php?topic={0}.0".format(alarm.topic_id))
+        messages.append("https://bitcointalk.org/index.php?topic={0}.0".format(alarm["topic_id"]))
         counter = counter + 1
     message = "\r\n".join(messages)
     r = redis.Redis()
