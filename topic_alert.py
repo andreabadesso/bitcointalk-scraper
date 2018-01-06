@@ -104,7 +104,7 @@ topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
 if len(alarms) > 0:
     id = 0
-    messages = ["Announcements com aumento de relevância:"]
+    messages = ["Announcements com aumento de relevancia:"]
     for alarm in alarms:
         messages.append("[{0}] [READ: +{1}, PAGE: +{2}] {3}".format(id, alarm["name"],
                                                                     alarm["read_increase"],
