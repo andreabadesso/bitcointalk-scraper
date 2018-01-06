@@ -1,6 +1,6 @@
 import pg
 
-query_check = """ 
+query = """ 
     WITH
         latest AS
         (
