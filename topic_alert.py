@@ -106,7 +106,7 @@ topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
 if len(alarms) > 0:
     counter = 0
-    messages = [u"🔔🔔  Announcements com aumento de relevância: 🔔🔔🔔 ", "\r\n"]
+    messages = [u"🔔🔔 Announcements com aumento de relevância: 🔔🔔", "\r\n"]
     for alarm in alarms:
         messages.append(u"""**{0}**
 Aumento no número de visualizações do tópico: `+{1}%` ({4})
