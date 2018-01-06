@@ -63,8 +63,25 @@ query = """
         )::float - 100) > 10
 """
 
-def create_dict(row):
+def row_to_topic(row):
+    dict = {
+            "topic_id": row[0],
+            "name": row[1],
+            "last_updated": row[2]
+            }
+
+    return dict
+
+def get_topics(cur):
+    cur.execute("SELECT sid, name, db_update_time FROM topic")
+    rows = cur.fetchall()
+    return map(lambda x: row_to_topic(x), rows)
+
+def create_dict(row, topics):
     dict = {}
+    for name, id in topics:
+        if id == row[0]:
+            dict["name"] = name
     dict["topic_id"] = row[0]
     dict["num_pages"] = row[2]
     dict["count_read"] = row[3]
@@ -75,11 +92,14 @@ def create_dict(row):
 
     return dict
 
+def get_alarms(query, cur, topics):
+    cur.execute(query)
+    rows = cur.fetchall()
+    print "{0} alarms found.".format(len(rows))
+    return map(lambda x: create_dict(x, topics), rows)
+
 cur = pg.cursor()
-cur.execute(query)
+topics = get_topics(cur)
+alarms = get_alarms(query, cur, topics)
 
-
-rows = cur.fetchall()
-topics = map(lambda x: create_dict(x), rows)
-
-print topics
+print alarms
