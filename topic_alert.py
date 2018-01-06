@@ -51,22 +51,19 @@ query = """
             SELECT count_read
             FROM last_day
             WHERE topic_id = latest.topic_id
-        ) AS last_day_count_read
+        ) AS last_day_count_read,
+        (
+        	SELECT latest.num_pages::float / 5000
+        ) AS weight
 
     FROM latest
     WHERE
-        ((latest.num_pages * 100) / (
+        (((latest.num_pages * 100) / (
             SELECT 
                 num_pages
             FROM last_day
             WHERE topic_id = latest.topic_id
-        )::float - 100) > 15 OR
-        ((latest.count_read * 100) / (
-            SELECT 
-                count_read
-            FROM last_day
-            WHERE topic_id = latest.topic_id
-        )::float - 100) > 15
+        )::float - 100) * (latest.num_pages::float / 5000)) > 0.1
 """
 
 def row_to_topic(row):
