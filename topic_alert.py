@@ -1,4 +1,5 @@
 import pg
+import redis
 
 query = """ 
     WITH
@@ -101,5 +102,9 @@ def get_alarms(query, cur, topics):
 cur = pg.cursor()
 topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
+
+r = redis.Redis()
+
+r.publish("bot_messages", "Just parsed alarms.")
 
 print alarms
