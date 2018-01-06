@@ -73,6 +73,8 @@ def create_dict(row):
     dict["last_day_pages"] = row[6]
     dict["last_day_reads"] = row[7]
 
+    return dict
+
 cur = pg.cursor()
 cur.execute(query)
 
