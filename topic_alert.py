@@ -60,13 +60,13 @@ query = """
                 num_pages
             FROM last_day
             WHERE topic_id = latest.topic_id
-        )::float - 100) > 20 OR
+        )::float - 100) > 15 OR
         ((latest.count_read * 100) / (
             SELECT 
                 count_read
             FROM last_day
             WHERE topic_id = latest.topic_id
-        )::float - 100) > 20
+        )::float - 100) > 15
 """
 
 def row_to_topic(row):
@@ -125,8 +125,8 @@ URL: https://bitcointalk.org/index.php?topic={3}
             round(alarm["read_increase"], 2),
             round(alarm["pages_increase"], 2),
             alarm["topic_id"],
-            "{0} -> {1}".format(alarm["num_pages"], alarm["last_day_pages"]),
-            "{0} -> {1}".format(alarm["count_read"], alarm["last_day_reads"])
+            "{0} -> {1}".format(alarm["last_day_pages"], alarm["num_pages"]),
+            "{0} -> {1}".format(alarm["last_day_reads"], alarm["count_read"])
             ))
         counter = counter + 1
 
