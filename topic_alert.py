@@ -111,11 +111,11 @@ Aumento no numero de visualizacoes do topico: `+{1}%` ({4})
 Aumento no numero de paginas do topico: `+{2}%` ({5})
 URL: https://bitcointalk.org/index.php?topic={3}
 """.format(alarm["name"],
-            alarm["read_increase"],
-            alarm["pages_increase"],
+            round(alarm["read_increase"], 2),
+            round(alarm["pages_increase"], 2),
             alarm["topic_id"],
-            alarm["num_pages"],
-            alarm["count_read"]
+            alarm["num_pages"] - alarm["last_day_pages"],
+            alarm["count_read"] - alarm["last_day_reads"]
             ))
         counter = counter + 1
     message = "\r\n".join(messages)
