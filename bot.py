@@ -2,6 +2,7 @@ import logging
 import redis
 import threading
 import io
+import telegram
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 
@@ -36,7 +37,7 @@ class Listener(threading.Thread):
     
     def work(self, item):
         for listener in listeners:
-            updater.bot.send_message(chat_id=listener, text=item["data"])
+            updater.bot.send_message(chat_id=listener, text=item["data"], parse_mode=telegram.ParseMode.MARKDOWN)
     
     def run(self):
         for item in self.pubsub.listen():
