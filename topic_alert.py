@@ -102,9 +102,19 @@ def get_alarms(query, cur, topics):
 cur = pg.cursor()
 topics = get_topics(cur)
 alarms = get_alarms(query, cur, topics)
+if len(alarms) > 0:
+    id = 0
+    messages = []
+    for alarm in alarms:
+        messages.append("[{0}] [READ: +{1}, PAGE: +{2}] {3}".format(id, alarm["name"],
+                                                                    alarm["read_increase"],
+                                                                    alarm["pages_increase"],
+                                                                    alarm["name"]))
+        id = id + 1
+    message = "".join(messages)
+    r.publish("bot_messages", message)
 
 r = redis.Redis()
 
-r.publish("bot_messages", "Just parsed alarms.")
-
-print alarms
+print len(alarms)
+# print alarms
