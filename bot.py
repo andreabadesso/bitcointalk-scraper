@@ -29,8 +29,7 @@ def latest(bot, update):
 
     def format(row):
         return """{0}
-    URL: https://bitcointalk.org/index.php?topic={1}
-        """.format(row[1], row[0])
+https://bitcointalk.org/index.php?topic={1}""".format(row[1], row[0])
 
     messages = map(lambda x: format(x), cur.fetchall())
     message = "\r\n".join(messages)
