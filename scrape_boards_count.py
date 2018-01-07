@@ -7,7 +7,7 @@ import sys
 import traceback
 
 boardId = 159
-pages = 50
+pages = 10
 
 logging.basicConfig(
     level=logging.INFO,
