@@ -7,7 +7,7 @@ import sys
 import traceback
 
 boardId = 159
-pages = 100
+pages = 50
 
 logging.basicConfig(
     level=logging.INFO,
@@ -24,7 +24,7 @@ board = memoizer.scrapeBoard(boardId)
 logging.info("Found {0} topic pages in board...".format(
     board['num_pages']))
 
-for boardPageNum in range(1, board['num_pages'] + 1):
+for boardPageNum in range(1, pages + 1):
     logging.info(">Scraping page {0}...".format(boardPageNum))
     topicIds = memoizer.scrapeTopicIds(boardId, boardPageNum)
     for topicId in topicIds:
