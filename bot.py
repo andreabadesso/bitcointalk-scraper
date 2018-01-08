@@ -51,7 +51,7 @@ https://bitcointalk.org/index.php?topic={1}""".format(row[1], row[0])
 
 start_handler = CommandHandler('21blocks_subscribe', start)
 latest_handler = CommandHandler('latest', latest)
-latest_masternodes_handler = CommandHandler('latest', latest_masternode)
+latest_masternodes_handler = CommandHandler('latest_masternode', latest_masternode)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(latest_handler)
 updater.start_polling()
