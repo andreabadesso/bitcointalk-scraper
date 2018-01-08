@@ -25,7 +25,7 @@ def start(bot, update):
 
 def latest_masternode(bot, update):
     cur = pg.cursor()
-    cur.execute("SELECT * FROM topic WHERE name ILIKE '%masternode%' LIMIT 10")
+    cur.execute("SELECT * FROM topic WHERE name ILIKE '%masternode%' ORDER BY sid DESC LIMIT 10")
 
     def format(row):
         return """{0}
