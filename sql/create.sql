@@ -58,3 +58,14 @@ CREATE TABLE IF NOT EXISTS member (
 );
 CREATE INDEX ON member (name);
 CREATE INDEX ON member (bitcoin_address);
+
+CREATE TABLE IF NOT EXISTS alerts (
+    sid INTEGER,
+    name VARCHAR(255),
+    board INTEGER,
+    num_pages INTEGER,
+    count_read INTEGER,
+    read_increase FLOAT,
+    pages_increase FLOAT,
+    PRIMARY KEY (sid)
+);
