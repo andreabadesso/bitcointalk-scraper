@@ -23,7 +23,7 @@ def row_to_topic(row):
 @app.route("/")
 def all_topics():
     cur = pg.cursor()
-    cur.execute("SELECT sid, name, read_increase, page_increase, num_pages, count_read FROM alerts")
+    cur.execute("SELECT sid, name, read_increase, pages_increase, num_pages, count_read FROM alerts")
     rows = cur.fetchall()
     data = map(lambda x: row_to_topic(x), rows)
     print json.dumps(data)
