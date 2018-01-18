@@ -140,7 +140,7 @@ try:
         INSERT INTO alerts
         (sid, name, board, num_pages, count_read, read_increase, pages_increase) VALUES
         ({0}, {1}, {2}, {3}, {4}, {5}, {6})
-    """.format(alarm["topic_id"], alarm["name"], alarm["num_pages"], alarm["count_read"], alarm["read_increase"], alarm["pages_increase"]))
+    """.format(alarm["topic_id"], alarm["name"], 1, alarm["num_pages"], alarm["count_read"], alarm["read_increase"], alarm["pages_increase"]))
 except Exception as e:
     print("EXCEPTION")
     cur.execute("ROLLBACK;")
