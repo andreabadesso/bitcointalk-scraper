@@ -12,9 +12,10 @@ def row_to_topic(row):
     dict = {
             "topic_id": row[0],
             "name": row[1],
-            "last_updated": "{}".format(row[2]),
-            "num_pages": row[3],
-            "coun_read": row[4]
+            "read_increase": row[2],
+            "page_increase": row[3],
+            "num_pages": row[4],
+            "count_read": row[5]
             }
 
     return dict
@@ -22,7 +23,7 @@ def row_to_topic(row):
 @app.route("/")
 def all_topics():
     cur = pg.cursor()
-    cur.execute("SELECT sid, name, db_update_time, num_pages, count_read FROM topic")
+    cur.execute("SELECT sid, name, read_increase, page_increase, num_pages, count_read FROM topic")
     rows = cur.fetchall()
     data = map(lambda x: row_to_topic(x), rows)
     print json.dumps(data)
