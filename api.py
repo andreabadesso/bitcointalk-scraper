@@ -30,3 +30,5 @@ def all_topics():
 
     return json.dumps(data)
 
+
+app.run(host="0.0.0.0")
