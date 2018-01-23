@@ -37,6 +37,20 @@ https://bitcointalk.org/index.php?topic={1}""".format(row[1], row[0])
 
     updater.bot.send_message(chat_id=update.message.chat_id, text=message, parse_mode=telegram.ParseMode.MARKDOWN)
 
+def latest_ico(bot, update):
+    cur = pg.cursor()
+    cur.execute("SELECT * FROM topic WHERE name ILIKE '%ico%' ORDER BY sid DESC LIMIT 10")
+    print "WAT"
+
+    def format(row):
+        return """{0}
+https://bitcointalk.org/index.php?topic={1}""".format(row[1], row[0])
+
+    messages = map(lambda x: format(x), cur.fetchall())
+    message = "\r\n".join(messages)
+
+    updater.bot.send_message(chat_id=update.message.chat_id, text=message, parse_mode=telegram.ParseMode.MARKDOWN)
+
 def latest(bot, update):
     cur = pg.cursor()
     cur.execute("SELECT sid, name FROM topic ORDER BY sid DESC LIMIT 10")
@@ -53,8 +67,12 @@ https://bitcointalk.org/index.php?topic={1}""".format(row[1], row[0])
 start_handler = CommandHandler('21blocks_subscribe', start)
 latest_handler = CommandHandler('latest', latest)
 latest_masternodes_handler = CommandHandler('latest_masternode', latest_masternode)
+latest_ico_handler = CommandHandler('latest_ico', latest_ico)
+
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(latest_handler)
+dispatcher.add_handler(latest_ico_handler)
+
 updater.start_polling()
 
 # updater.bot.send_message(chat_id="-1001312685209", text="OK")
